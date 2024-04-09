@@ -12,6 +12,10 @@ import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
+
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 public class Window {
     private long window;
 
@@ -41,7 +45,18 @@ public class Window {
 
         PointerBuffer monitors = glfwGetMonitors();
         assert monitors != null : "No monitor found!";
-        long monitor = monitors.get(1);
+
+        int monitorCount = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length;
+        
+        Log.debug("Monitor count: {}", monitorCount);
+
+        long monitor = NULL;
+        if(monitorCount == 1) {
+            monitor = monitors.get(0); 
+        }else {
+            monitor = monitors.get(1);
+        }
+
 
         int[] monitorOffx = new int[1];
         int[] monitorOffy = new int[1];
