@@ -1,0 +1,26 @@
+apply plugin: "java"
+apply plugin: "application"
+
+mainClassName = "org.monkeg.games.tetris.Tetris"
+
+task debugApp(type: JavaExec) {
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-javaagent:../lwjgl-debug/lwjglx-debug-1.0.0.jar"]
+}
+
+repositories {
+    mavenCentral()
+}
+
+project.ext.jomlVersion = "1.10.5"
+
+dependencies {
+    implementation project(":MonkeNgine")
+    implementation "org.joml:joml:${jomlVersion}"
+}
+
+jar {
+    archiveBaseName = 'tetris'
+    archiveVersion =  '0.1.0'
+}

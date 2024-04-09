@@ -1,0 +1,19 @@
+<Configuration status="warn" name="debug" packages="">
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%highlight{[%d{yyyy-MM-dd HH:mm:ss}] [%p] \t %m%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue, TRACE=white}"/>
+        </Console>
+        <File name="fout" fileName="logfile.log" append="false">
+            <PatternLayout>
+                <Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] \t %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <AsyncRoot level="debug">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="fout"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>
+
