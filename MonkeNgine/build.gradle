@@ -42,3 +42,11 @@ jar {
     archiveBaseName = 'monkengine'
     archiveVersion =  '0.1.0'
 }
+
+sourceSets {
+	main {
+		resources {
+			srcDirs "src/main/resouces"
+		}
+	}
+}

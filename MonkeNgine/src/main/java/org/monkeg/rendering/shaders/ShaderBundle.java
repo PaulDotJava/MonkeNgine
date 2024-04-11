@@ -1,8 +1,7 @@
 package org.monkeg.rendering.shaders;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Objects;
 
 import org.monkeg.api.util.logging.Log;
 
@@ -12,7 +11,14 @@ class ShaderBundle {
     private final String fragmentShader;
 
     public ShaderBundle(String path) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(path));
+        //BufferedReader reader = new BufferedReader(new FileReader(path));
+        InputStream is = getClass().getResourceAsStream(path);
+
+        if(is == null) {
+            Log.fatal("Cant access resource: {}", path);
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
         Log.trace("Reading shader code from \"{}\"...", path);
 

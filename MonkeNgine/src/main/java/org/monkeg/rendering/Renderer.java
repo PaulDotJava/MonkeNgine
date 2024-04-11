@@ -30,8 +30,8 @@ public class Renderer {
 
         debugLayer = new DebugLayer();
 
-        sp = new ShaderProgram("src/main/resources/shaders/shader.glsl");
-        DebugShader.circleShader = new ShaderProgram("src/main/resources/shaders/debug_shader.glsl");
+        sp = new ShaderProgram("/shaders/shader.glsl");
+        DebugShader.circleShader = new ShaderProgram("/shaders/debug_shader.glsl");
         sp.bind();
 
         sp.setUniform1i("u_Sampler", 0);
