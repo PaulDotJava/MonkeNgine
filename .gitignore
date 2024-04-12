@@ -10,3 +10,5 @@ MonkeNgine/build
 
 Tetris/bin
 Tetris/build
+
+*.log
