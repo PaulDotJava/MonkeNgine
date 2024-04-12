@@ -14,15 +14,8 @@ public class RedPiece extends Piece{
 
         tiles.add(new Tile(new Vector2i(position.x, position.y), PieceColor.RED));
         tiles.add(new Tile(new Vector2i(position.x, position.y + 1), PieceColor.RED));
-        tiles.add(new Tile(new Vector2i(position.x + 1, position.y), PieceColor.RED));
         tiles.add(new Tile(new Vector2i(position.x + 1, position.y + 1), PieceColor.RED));
-
-        map[position.x][position.y] = sign;
-        map[position.x][position.y + 1] = sign;
-        map[position.x + 1][position.y] = sign;
-        map[position.x + 1][position.y + 1] = sign;
-
-        registerTiles();
+        tiles.add(new Tile(new Vector2i(position.x + 1, position.y), PieceColor.RED));
     }
 
     @Override

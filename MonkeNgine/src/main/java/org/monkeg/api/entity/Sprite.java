@@ -2,6 +2,7 @@ package org.monkeg.api.entity;
 
 import org.joml.Vector2f;
 import org.monkeg.api.entity.elements.Transform;
+import org.monkeg.api.util.logging.Log;
 import org.monkeg.rendering.data.Quad;
 import org.monkeg.rendering.data.textures.Texture;
 

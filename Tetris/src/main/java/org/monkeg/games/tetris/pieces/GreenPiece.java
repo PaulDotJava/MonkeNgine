@@ -18,13 +18,6 @@ public class GreenPiece extends Piece {
         tiles.add(new Tile(new Vector2i(position.x + 1, position.y), PieceColor.GREEN));
         tiles.add(new Tile(new Vector2i(position.x + 1, position.y + 1), PieceColor.GREEN));
         tiles.add(new Tile(new Vector2i(position.x + 2, position.y + 1), PieceColor.GREEN));
-
-        map[position.x][position.y] = sign;
-        map[position.x + 1][position.y] = sign;
-        map[position.x + 1][position.y + 1] = sign;
-        map[position.x + 2][position.y + 1] = sign;
-
-        registerTiles();
     }
 
     @Override

@@ -59,12 +59,11 @@ public class Renderer {
         int circleCount = debugLayer.getCircleCount();
 
         if(circleCount != 0) {
-            Log.trace("Rendering {} circles", circleCount);
+            Log.debug("Rendering {} circles", circleCount);
             debugLayer.prepCircles(viewMat, projectionMat);
             GL30.glDrawArrays(GL30.GL_POINTS, 0, circleCount);
             debugLayer.clear();
         }
-
     }
 
     public void cleanup() {

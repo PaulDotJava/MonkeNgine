@@ -16,13 +16,6 @@ public class PurplePiece extends Piece{
         tiles.add(new Tile(new Vector2i(position.x + 1, position.y), PieceColor.PURPLE));
         tiles.add(new Tile(new Vector2i(position.x + 2, position.y + 1), PieceColor.PURPLE));
         tiles.add(new Tile(new Vector2i(position.x + 2, position.y), PieceColor.PURPLE));
-
-        map[position.x][position.y] = sign;
-        map[position.x + 1][position.y] = sign;
-        map[position.x + 2][position.y + 1] = sign;
-        map[position.x + 2][position.y] = sign;
-
-        registerTiles();
     }
 
     @Override

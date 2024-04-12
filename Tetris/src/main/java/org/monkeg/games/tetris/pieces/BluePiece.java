@@ -16,13 +16,6 @@ public class BluePiece extends Piece{
         tiles.add(new Tile(new Vector2i(position.x + 1, position.y), PieceColor.BLUE));
         tiles.add(new Tile(new Vector2i(position.x + 2, position.y), PieceColor.BLUE));
         tiles.add(new Tile(new Vector2i(position.x + 3, position.y), PieceColor.BLUE));
-
-        map[position.x][position.y] = sign;
-        map[position.x + 1][position.y] = sign;
-        map[position.x + 2][position.y] = sign;
-        map[position.x + 3][position.y] = sign;
-
-        registerTiles();
     }
 
     @Override

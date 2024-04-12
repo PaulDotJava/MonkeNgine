@@ -56,8 +56,8 @@ public class MonkeNgine {
     public void cleanup() {
         Log.info("MonkeNgine terminating...");
 
+        Log.debug("Freeing resources for {} entities", Entity.getEntities().size());
         for (Entity entity : Entity.getEntities()) {
-            Log.debug("{} entities", Entity.getEntities().size());
             entity.freeResources();
         }
 

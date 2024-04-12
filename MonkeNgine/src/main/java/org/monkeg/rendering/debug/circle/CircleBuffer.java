@@ -57,8 +57,6 @@ public class CircleBuffer {
     public void drawPrep(Matrix4f viewMat, Matrix4f projMat) {
         vbo.bind();
 
-        Log.debug("Drawing {} circles", circleCount);
-
         DebugShader.circleShader.bind();
         DebugShader.circleShader.setUniformMat4f("u_ProjMat", projMat);
         DebugShader.circleShader.setUniformMat4f("u_ViewMat", viewMat);

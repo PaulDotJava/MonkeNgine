@@ -17,21 +17,22 @@ public class Texture {
     int channels;
 
     public Texture(String filename) {
-        Log.debug("Constructing texture:");
+        Log.trace("Constructing texture:");
         ImageData data = loadImage(filename);
 
         width = data.width;
         height = data.height;
         channels = data.channels;
 
-        Log.debug("Texture data: {}w * {}h pixels, {} channels", width, height, channels);
+        Log.trace("Texture data: {}w * {}h pixels, {} channels", width, height, channels);
 
         textureId = createTexture(data.buffer);
+        Log.trace("Texture ID: {}", textureId);
         freeLocalBuffer(data.buffer);
     }
 
     private ImageData loadImage(String filename) {
-        Log.debug("Loading image data from \"{}\"...", filename);
+        Log.trace("Loading image data from \"{}\"...", filename);
 
         ImageData data = new ImageData();
 
@@ -65,7 +66,7 @@ public class Texture {
     }
 
     private int createTexture(ByteBuffer buffer) {
-        Log.debug("Creating OpenGL texture...");
+        Log.trace("Creating OpenGL texture...");
         int id = GL30.glGenTextures();
         GL30.glBindTexture(GL30.GL_TEXTURE_2D, id);
         GL30.glPixelStorei(GL30.GL_UNPACK_ALIGNMENT, 1);
@@ -94,7 +95,7 @@ public class Texture {
     }
 
     public void delete() {
-        Log.debug("Deleting texture: {}", textureId);
+        Log.trace("Deleting texture: {}", textureId);
         GL30.glDeleteTextures(textureId);
     }
 

@@ -8,17 +8,17 @@ public class Entity {
     private static final HashSet<Entity> entities = new HashSet<>();
 
     public Entity() {
-        Log.debug("Creating entity (" + this.getClass().getName() + ")");
+        Log.trace("Creating entity (" + this.getClass().getName() + ")");
         entities.add(this);
     }
 
     public void delete() {
-        Log.debug("Deleting entity (" + this.getClass().getName() + ")");
+        Log.trace("Deleting entity (" + this.getClass().getName() + ")");
         entities.remove(this);
     }
 
     public void freeResources() {
-        Log.debug("Freeing resources from entity (" + this.getClass().getName() + ")");
+        Log.trace("Freeing resources from entity (" + this.getClass().getName() + ")");
     }
 
     public void update(double dt) {}

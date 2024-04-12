@@ -3,6 +3,7 @@ package org.monkeg.games.tetris.pieces;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.monkeg.api.entity.Sprite;
+import org.monkeg.api.util.color.Color;
 import org.monkeg.games.tetris.GameScreen;
 
 public class Tile {
@@ -11,9 +12,12 @@ public class Tile {
     private Vector2i position;  // Grid coords
 
     private Piece parentPiece;
+    private PieceColor color;
 
     public Tile(Vector2i position, PieceColor color) {
         this.position = new Vector2i(position);
+
+        this.color = color;
 
         String fileName = switch (color) {
             case RED -> "red_tile.png";
@@ -36,19 +40,24 @@ public class Tile {
         this.parentPiece = parentPiece;
     }
 
+    public Piece getParentPiece() {
+        return parentPiece;
+    }
+
     public void setPosition(Vector2i position) {
         sprite.setPosition(gridToScreen(position));
         this.position = position;
     }
 
-    public void moveTo(Vector2i newPos, char[][] map) {
-        map[position.x][position.y] = '\0';
-        setPosition(newPos);
-        map[position.x][position.y] = parentPiece.sign;
-    }
-
     public Vector2i getPosition() {
         return position;
+    }
+    public Vector2f getSpritePosition() {
+        return sprite.getPosition();
+    }
+
+    public PieceColor getColor() {
+        return color;
     }
 
     private Vector2f gridToScreen(Vector2i vec) {

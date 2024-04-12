@@ -28,11 +28,13 @@ public abstract class Piece {
 
         fallingDelay = normalFallingDelay;
         fallingTimer = 0;
-        tiles = new ArrayList<>();
+        tiles = new ArrayList<Tile>();
     }
 
-    protected void registerTiles() {
+    protected void registerTiles(char[][] map) {
         GameScreen.tiles.addAll(tiles);
+        Log.debug("Registering {} tiles", tiles.size());
+        tiles.forEach(tile -> map[tile.getPosition().x][tile.getPosition().y] = sign);
         tiles.forEach((Tile tile) -> tile.setParentPiece(this));
     }
 
@@ -56,8 +58,6 @@ public abstract class Piece {
 
         ArrayList<Vector2i> newPositions = new ArrayList<>();
         fVecs.forEach(vec -> newPositions.add(modelToWorldPos(vec)));
-
-        newPositions.forEach(vec -> Log.debug(vec.toString()));
 
         for(Vector2i pos : newPositions) {
             if(!isPosValid(pos, map)) {
@@ -132,8 +132,9 @@ public abstract class Piece {
         sign = 'g';
 
         // update to final sign on map
-        tiles.forEach((tile) -> map[tile.getPosition().x][tile.getPosition().y] = sign);
+        tiles.forEach(tile -> map[tile.getPosition().x][tile.getPosition().y] = sign);
         falling = false;
+        registerTiles(map);
     }
 
     public void delete() {
@@ -213,6 +214,10 @@ public abstract class Piece {
     public boolean tryGoRight(char[][] map) {
 
         return tryMoveSide(1, map);
+    }
+
+    public char getSign() {
+        return sign;
     }
 
 

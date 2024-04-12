@@ -10,10 +10,11 @@ import org.monkeg.games.tetris.pieces.*;
 import org.monkeg.rendering.debug.circle.Circle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class GameScreen {
-    private final ArrayList<Piece> pieces;
     private Piece fallingPiece;
     private final char[][] map;
     public static ArrayList<Tile> tiles = new ArrayList<>();
@@ -30,11 +31,8 @@ public class GameScreen {
             }
         }
 
-        pieces = new ArrayList<>();
-
+        //spawnNewPiece();
         fallingPiece = new RedPiece(map);
-
-        pieces.add(fallingPiece);
     }
 
     public static boolean isOutOfBounds(Vector2i point) {
@@ -70,14 +68,9 @@ public class GameScreen {
             fallingPiece.rotate(1, map);
         }
 
-        if(input.isKeyTapped(Key.MONKE_KEY_F3)) {
-            for (Piece p : pieces) {
-                p.delete();
-            }
-            pieces.clear();
-        }
-
         fallingPiece.fall(map, dt);
+
+        removeFullRows();
 
         if (fallingPiece.hasLanded()) {
            spawnNewPiece();
@@ -96,11 +89,13 @@ public class GameScreen {
 
     private void removeFullRows() {
         ArrayList<Integer> ret = new ArrayList<>();
+
+        // Removing full lines
         for(int y = 0; y < mapSize.y; y++) {
             // Detect if line is full
             boolean isLineFull = true;
             for(int x = 0; x < mapSize.x; x++) {
-                if(map[x][y] == '\0' && map[x][y] == 'c') {
+                if(map[x][y] == '\0' || map[x][y] == 'c') {
                     isLineFull = false;
                     break;
                 }
@@ -111,8 +106,47 @@ public class GameScreen {
                 for(int x = 0; x < mapSize.x; x++) {
                     map[x][y] = '\0';
                 }
+
+                ArrayList<Integer> lineIndices = getTileIndicesOfLine(y);
+                for (int i = 0; i < lineIndices.size(); i++) {
+                    //Log.debug("{}", tiles.get(i).getColor().toString());
+                    tiles.remove(lineIndices.get(i) - i).delete();
+                }
+
+                makeLinesAboveFall(y);
+                // Have to check this line again
+                y--;
+            }
+
+
+        }
+    }
+
+    private void makeLinesAboveFall(int y) {
+        ArrayList<Tile> affectedTiles = new ArrayList<>();
+        tiles.forEach(tile -> {
+            if (tile.getPosition().y > y) {
+                map[tile.getPosition().x][tile.getPosition().y] = '\0';
+                affectedTiles.add(tile);
+            }
+        });
+
+        Log.info("Affected tiles: {}", affectedTiles.size());
+        affectedTiles.forEach(tile -> tile.setPosition(new Vector2i(tile.getPosition().x, tile.getPosition().y - 1)));
+        //affectedTiles.forEach(tile -> Log.debug("{}, {}", tile.getPosition().x, tile.getPosition().y));
+        affectedTiles.forEach(tile -> map[tile.getPosition().x][tile.getPosition().y] = tile.getParentPiece().getSign());
+    }
+
+    private ArrayList<Integer> getTileIndicesOfLine(int y) {
+        ArrayList<Integer> ret = new ArrayList<>();
+
+        for(int i = 0; i < tiles.size(); i++) {
+            if (tiles.get(i).getPosition().y == y) {
+                ret.add(i);
             }
         }
+
+        return ret;
     }
 
     private void spawnNewPiece() {
@@ -128,6 +162,8 @@ public class GameScreen {
 
             default -> new GreenPiece(map);
         };
+
+        //fallingPiece = new BluePiece(map);
     }
 
     public static void printMap(char[][] map) {
