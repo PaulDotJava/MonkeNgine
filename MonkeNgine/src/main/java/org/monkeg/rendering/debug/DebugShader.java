@@ -4,4 +4,5 @@ import org.monkeg.rendering.shaders.ShaderProgram;
 
 public class DebugShader {
     public static ShaderProgram circleShader;
+    public static ShaderProgram lineShader;
 }

@@ -2,6 +2,7 @@ package org.monkeg.games.tetris;
 
 import org.joml.Vector2i;
 import org.monkeg.MonkeNgine;
+import org.monkeg.api.debug.Line;
 import org.monkeg.api.input.InputManager;
 import org.monkeg.api.input.Key;
 import org.monkeg.api.util.color.Color;
@@ -39,8 +40,9 @@ public class GameScreen {
     }
 
     public int update(double dt) {
-
         InputManager input = MonkeNgine.getInstance().getInputManager();
+
+        new Line(10, 10, 700, 500, Color.MAGENTA).add();
 
         if(input.isKeyPressed(Key.MONKE_KEY_DOWN)) {
             Piece.setFastFall();

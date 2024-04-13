@@ -8,7 +8,6 @@ import org.monkeg.api.util.logging.Log;
 import org.monkeg.rendering.debug.DebugLayer;
 import org.monkeg.rendering.debug.DebugShader;
 import org.monkeg.rendering.shaders.ShaderProgram;
-import org.monkeg.window.Window;
 
 public class Renderer {
     private final int vieWPortWidth;
@@ -31,7 +30,8 @@ public class Renderer {
         debugLayer = new DebugLayer();
 
         sp = new ShaderProgram("/shaders/shader.glsl");
-        DebugShader.circleShader = new ShaderProgram("/shaders/debug_shader.glsl");
+        DebugShader.circleShader = new ShaderProgram("/shaders/debug_circle_shader.glsl");
+        DebugShader.lineShader = new ShaderProgram("/shaders/debug_line_shader.glsl");
         sp.bind();
 
         sp.setUniform1i("u_Sampler", 0);
@@ -59,11 +59,20 @@ public class Renderer {
         int circleCount = debugLayer.getCircleCount();
 
         if(circleCount != 0) {
-            Log.debug("Rendering {} circles", circleCount);
+            Log.trace("Rendering {} circles", circleCount);
             debugLayer.prepCircles(viewMat, projectionMat);
             GL30.glDrawArrays(GL30.GL_POINTS, 0, circleCount);
-            debugLayer.clear();
         }
+
+        int lineCount = debugLayer.getLineCount();
+        Log.debug("Rendering {} lines", lineCount);
+        if(lineCount != 0) {
+            debugLayer.prepLines(viewMat, projectionMat);
+
+            GL30.glDrawArrays(GL30.GL_LINES, 0, lineCount * 2);
+        }
+
+        debugLayer.clear();
     }
 
     public void cleanup() {

@@ -65,7 +65,7 @@ public class CircleBuffer {
         circleCount = 0;
     }
 
-    public int getVertexCount() {
+    public int getCircleCount() {
         return circleCount;
     }
 }
