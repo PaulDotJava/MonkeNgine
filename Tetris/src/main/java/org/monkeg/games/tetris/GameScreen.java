@@ -7,11 +7,9 @@ import org.monkeg.api.input.Key;
 import org.monkeg.api.util.color.Color;
 import org.monkeg.api.util.logging.Log;
 import org.monkeg.games.tetris.pieces.*;
-import org.monkeg.rendering.debug.circle.Circle;
+import org.monkeg.api.debug.Circle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 
 public class GameScreen {
@@ -79,7 +77,7 @@ public class GameScreen {
         for(int y = 0; y < mapSize.y; y++) {
             for(int x = 0; x < mapSize.x; x++) {
                 if (map[x][y] != '\0')  {
-                    new Circle(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, 7, Color.CYAN);
+                    new Circle(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, 7, Color.CYAN).add();
                 }
             }
         }

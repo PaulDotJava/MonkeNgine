@@ -1,4 +1,4 @@
-package org.monkeg.rendering.debug.circle;
+package org.monkeg.api.debug;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -9,16 +9,14 @@ import org.monkeg.rendering.debug.DebugDrawable;
 import org.monkeg.rendering.debug.DebugShader;
 
 public class Circle{
-    private Vector2f position;
-    private float radius;
-    private Color color;
+    public Vector2f position;
+    public float radius;
+    public Color color;
 
     public Circle(Vector2f position, float radius, Color color) {
         this.position = position;
         this.radius = radius;
         this.color = color;
-
-        MonkeNgine.getInstance().getRenderer().getDebugLayer().addCircle(this);
     }
 
     public Circle(float x, float y, float radius, Color color) {
@@ -29,15 +27,7 @@ public class Circle{
         );
     }
 
-    public Vector2f getPosition() {
-        return position;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public Color getColor() {
-        return color;
+    public void add() {
+        MonkeNgine.getInstance().getRenderer().getDebugLayer().addCircle(this);
     }
 }

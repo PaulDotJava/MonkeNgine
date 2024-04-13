@@ -1,7 +1,7 @@
-package org.monkeg.rendering.debug.circle;
+package org.monkeg.rendering.debug;
 
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
+import org.monkeg.api.debug.Circle;
 import org.monkeg.api.util.logging.Log;
 import org.monkeg.rendering.data.buffers.MappedVertexBuffer;
 import org.monkeg.rendering.data.buffers.VertexBufferLayout;
@@ -31,25 +31,23 @@ public class CircleBuffer {
         localBuffer = vbo.buffer;
     }
 
-    public void pushCircle(Circle circle) {
+    public void pushCircle(Circle c) {
         if (circleCount >= CAPACITY - 1) {
             Log.warn("Can't draw any more Debug Circles! (limit = {})", CAPACITY);
             return;
         }
 
-        Vector2f pos = circle.getPosition();
-        float[] color = circle.getColor().getRGBA();
-        float radius = circle.getRadius();
+        localBuffer.putFloat(c.position.x);
+        localBuffer.putFloat(c.position.y);
 
-        localBuffer.putFloat(pos.x);
-        localBuffer.putFloat(pos.y);
+        float[] color = c.color.getRGBA();
 
         localBuffer.putFloat(color[0]);
         localBuffer.putFloat(color[1]);
         localBuffer.putFloat(color[2]);
         localBuffer.putFloat(color[3]);
 
-        localBuffer.putFloat(radius);
+        localBuffer.putFloat(c.radius);
 
         circleCount++;
     }

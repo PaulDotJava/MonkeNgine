@@ -1,8 +1,7 @@
 package org.monkeg.rendering.debug;
 
 import org.joml.Matrix4f;
-import org.monkeg.rendering.debug.circle.Circle;
-import org.monkeg.rendering.debug.circle.CircleBuffer;
+import org.monkeg.api.debug.Circle;
 
 public class DebugLayer {
     private final CircleBuffer circleBuffer;
