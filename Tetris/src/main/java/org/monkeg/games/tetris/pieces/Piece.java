@@ -128,17 +128,12 @@ public abstract class Piece {
     }
 
     private void touchdown(char[][] map) {
-        //Log.debug("Touchdown");
         sign = 'g';
 
         // update to final sign on map
         tiles.forEach(tile -> map[tile.getPosition().x][tile.getPosition().y] = sign);
         falling = false;
         registerTiles(map);
-    }
-
-    public void delete() {
-        tiles.forEach(Tile::delete);
     }
 
     public static void setFastFall() {

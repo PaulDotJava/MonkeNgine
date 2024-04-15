@@ -30,8 +30,7 @@ public class GameScreen {
             }
         }
 
-        //spawnNewPiece();
-        fallingPiece = new RedPiece(map);
+        spawnNewPiece();
     }
 
     public static boolean isOutOfBounds(Vector2i point) {
@@ -51,17 +50,12 @@ public class GameScreen {
         }
 
         if(input.isKeyTapped(Key.MONKE_KEY_LEFT)) {
-            //Log.debug("Trying to go left!");
-            if(fallingPiece.tryGoLeft(map)) {
-               printMap(map);
-            }
+            fallingPiece.tryGoLeft(map);
+
         }
 
         if(input.isKeyTapped(Key.MONKE_KEY_RIGHT)) {
-            //Log.debug("Trying to go right!");
-            if(fallingPiece.tryGoRight(map)) {
-                printMap(map);
-            }
+            fallingPiece.tryGoRight(map);
         }
 
         if(input.isKeyTapped(Key.MONKE_KEY_A)) {
@@ -133,7 +127,6 @@ public class GameScreen {
 
         Log.info("Affected tiles: {}", affectedTiles.size());
         affectedTiles.forEach(tile -> tile.setPosition(new Vector2i(tile.getPosition().x, tile.getPosition().y - 1)));
-        //affectedTiles.forEach(tile -> Log.debug("{}, {}", tile.getPosition().x, tile.getPosition().y));
         affectedTiles.forEach(tile -> map[tile.getPosition().x][tile.getPosition().y] = tile.getParentPiece().getSign());
     }
 
@@ -162,22 +155,5 @@ public class GameScreen {
 
             default -> new GreenPiece(map);
         };
-
-        //fallingPiece = new BluePiece(map);
-    }
-
-    public static void printMap(char[][] map) {
-
-        /*
-        Log.debug("");
-        for(int y = 0; y < mapSize.y; y++) {
-            String line = "";
-            for(int x = 0; x < mapSize.x; x++) {
-                line += map[x][y];
-            }
-            Log.debug("{}", line);
-        }
-        Log.debug("");
-        */
     }
 }

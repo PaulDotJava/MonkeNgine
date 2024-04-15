@@ -5,17 +5,15 @@ import org.monkeg.api.debug.Circle;
 import org.monkeg.api.util.logging.Log;
 import org.monkeg.rendering.data.buffers.MappedVertexBuffer;
 import org.monkeg.rendering.data.buffers.VertexBufferLayout;
-import org.monkeg.rendering.debug.DebugShader;
 
 import java.nio.ByteBuffer;
 
 public class CircleBuffer {
-    private final ByteBuffer localBuffer;
+    private final ByteBuffer mappedBuffer;
     private final MappedVertexBuffer vbo;
 
     private static final int VERTEX_SIZE = 7 * 4;
     private static final int CAPACITY = 500;
-    private static final int BUFFER_CAPACITY = VERTEX_SIZE * CAPACITY;
 
     private int circleCount;
 
@@ -27,8 +25,8 @@ public class CircleBuffer {
 
         circleCount = 0;
 
-        vbo = new MappedVertexBuffer(BUFFER_CAPACITY, layout);
-        localBuffer = vbo.buffer;
+        vbo = new MappedVertexBuffer(VERTEX_SIZE * CAPACITY, layout);
+        mappedBuffer = vbo.buffer;
     }
 
     public void pushCircle(Circle c) {
@@ -37,17 +35,17 @@ public class CircleBuffer {
             return;
         }
 
-        localBuffer.putFloat(c.position.x);
-        localBuffer.putFloat(c.position.y);
+        mappedBuffer.putFloat(c.position.x);
+        mappedBuffer.putFloat(c.position.y);
 
         float[] color = c.color.getRGBA();
 
-        localBuffer.putFloat(color[0]);
-        localBuffer.putFloat(color[1]);
-        localBuffer.putFloat(color[2]);
-        localBuffer.putFloat(color[3]);
+        mappedBuffer.putFloat(color[0]);
+        mappedBuffer.putFloat(color[1]);
+        mappedBuffer.putFloat(color[2]);
+        mappedBuffer.putFloat(color[3]);
 
-        localBuffer.putFloat(c.radius);
+        mappedBuffer.putFloat(c.radius);
 
         circleCount++;
     }
@@ -61,7 +59,7 @@ public class CircleBuffer {
     }
 
     public void clear() {
-        localBuffer.clear();
+        mappedBuffer.clear();
         circleCount = 0;
     }
 

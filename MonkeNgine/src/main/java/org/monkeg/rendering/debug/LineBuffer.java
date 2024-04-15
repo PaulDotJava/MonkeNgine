@@ -9,8 +9,8 @@ import org.monkeg.rendering.data.buffers.VertexBufferLayout;
 import java.nio.ByteBuffer;
 
 public class LineBuffer {
-    private final int VERTEX_SIZE = 5 * 4;
-    private final int CAPACITY = 500;
+    private static final int VERTEX_SIZE = 5 * 4;
+    private static final int CAPACITY = 500;
 
     private final MappedVertexBuffer vbo;
     private final ByteBuffer mappedBuffer;

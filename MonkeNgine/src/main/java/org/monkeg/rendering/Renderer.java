@@ -65,7 +65,7 @@ public class Renderer {
         }
 
         int lineCount = debugLayer.getLineCount();
-        Log.debug("Rendering {} lines", lineCount);
+        Log.trace("Rendering {} lines", lineCount);
         if(lineCount != 0) {
             debugLayer.prepLines(viewMat, projectionMat);
 
